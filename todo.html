@@ -1,0 +1,123 @@
+<html>
+<head>
+  <style>
+    /* CSS Styling */
+    h1 {
+      text-align: center;
+    }
+
+    input {
+      width: 80%;
+      margin: 10px;
+    }
+
+    button {
+      width: 10%;
+      margin: 10px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 10px;
+      padding: 10px;
+      border: 1px solid black;
+    }
+
+    .completed {
+      text-decoration: line-through;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <h1>My To-Do List</h1>
+  <!-- HTML Structure -->
+  <div id="container">
+    <input id="task-input" type="text" placeholder="Enter a new task">
+    <button id="add-button">Add</button>
+    <ul id="task-list"></ul>
+  </div>
+  <script>
+    // JavaScript Logic
+    // Get the elements from the document
+    var taskInput = document.getElementById("task-input");
+    var addButton = document.getElementById("add-button");
+    var taskList = document.getElementById("task-list");
+
+    // Define a function to create a new task element
+    function createTaskElement(task) {
+      // Create a list item
+      var li = document.createElement("li");
+      // Create a text node with the task value
+      var text = document.createTextNode(task);
+      // Append the text node to the list item
+      li.appendChild(text);
+      // Create a button to mark the task as completed
+      var completeButton = document.createElement("button");
+      completeButton.textContent = "Complete";
+      // Append the button to the list item
+      li.appendChild(completeButton);
+      // Create a button to remove the task from the list
+      var removeButton = document.createElement("button");
+      removeButton.textContent = "Remove";
+      // Append the button to the list item
+      li.appendChild(removeButton);
+      // Return the list item
+      return li;
+    }
+
+    // Define a function to add a new task to the list
+    function addTask() {
+      // Get the value of the input field
+      var task = taskInput.value;
+      // Check if the input is not empty
+      if (task) {
+        // Create a new task element
+        var taskElement = createTaskElement(task);
+        // Append the task element to the task list
+        taskList.appendChild(taskElement);
+        // Clear the input field
+        taskInput.value = "";
+      }
+    }
+
+    // Define a function to mark a task as completed
+    function completeTask(event) {
+      // Get the target element of the event
+      var target = event.target;
+      // Check if the target is a complete button
+      if (target.textContent === "Complete") {
+        // Get the parent element of the target
+        var parent = target.parentElement;
+        // Toggle the completed class on the parent
+        parent.classList.toggle("completed");
+      }
+    }
+
+    // Define a function to remove a task from the list
+    function removeTask(event) {
+      // Get the target element of the event
+      var target = event.target;
+      // Check if the target is a remove button
+      if (target.textContent === "Remove") {
+        // Get the parent element of the target
+        var parent = target.parentElement;
+        // Remove the parent element from the task list
+        taskList.removeChild(parent);
+      }
+    }
+
+    // Interactivity
+    // Add an event listener to the add button to add a new task
+    addButton.addEventListener("click", addTask);
+    // Add an event listener to the task list to mark a task as completed
+    taskList.addEventListener("click", completeTask);
+    // Add an event listener to the task list to remove a task from the list
+    taskList.addEventListener("click", removeTask);
+  </script>
+</body>
+</html>
